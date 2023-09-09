@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
 import Grid from "@mui/material/Unstable_Grid2";
 import { MenuItem, Select, Typography } from "@mui/material";
+import PostComponent from "./components/PostClass";
 /**
  * You will find globals from this file useful!
  */
@@ -25,6 +25,10 @@ function App() {
   "status": "active",
   "title": "CS 350"}]);
 
+  const updateClassList = (newClass: IUniversityClass) => {
+    setClassList([...classList, newClass])
+  }
+
   /**
    * This is JUST an example of how you might fetch some data(with a different API).
    * As you might notice, this does not show up in your console right now.
@@ -39,13 +43,7 @@ function App() {
    * You will also need to explore the use of async/await.
    *
    */
-  const fetchSomeData = async () => {
-    const res = await fetch("https://cat-fact.herokuapp.com/facts/", {
-      method: "GET",
-    });
-    const json = await res.json();
-    console.log(json);
-  };
+
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
@@ -60,7 +58,8 @@ function App() {
             Select a class
           </Typography>
           <div style={{ width: "100%" }}>
-            <Select fullWidth={true} label="Class">
+          <PostComponent updateClassList={updateClassList} />
+            <Select fullWidth={true} label="Class" value = {currClassId} onChange={(event) => setCurrClassId(event.target.value)}>
               {/* You'll need to place some code here to generate the list of items in the selection */}
                {classList.map(clas => (
                 <MenuItem key = {clas.classId} value={clas.title}>{clas.title} </MenuItem>)) } 
