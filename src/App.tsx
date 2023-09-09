@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { MenuItem, Select, Typography } from "@mui/material";
 import PostComponent from "./components/PostClass";
+import GradeTable from "./components/GradeTable";
 /**
  * You will find globals from this file useful!
  */
@@ -70,7 +71,7 @@ function App() {
           <Typography variant="h4" gutterBottom>
             Final Grades
           </Typography>
-          <div>Place the grade table here</div>
+          <GradeTable currClassID ={currClassId} />
         </Grid>
       </Grid>
     </div>
