@@ -59,7 +59,6 @@ function App() {
             Select a class
           </Typography>
           <div style={{ width: "100%" }}>
-          <PostComponent updateClassList={updateClassList} />
             <Select fullWidth={true} label="Class" value = {currClassId} onChange={(event) => setCurrClassId(event.target.value)}>
               {/* You'll need to place some code here to generate the list of items in the selection */}
                {classList.map(clas => (

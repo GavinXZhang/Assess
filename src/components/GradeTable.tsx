@@ -1,5 +1,6 @@
 import { IGrade } from "../types/api_types"
 import{Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+import {DataGrid} from '@mui/x-data-grid';
 /**
  * You might find it useful to have some dummy data for your own testing.
  * Feel free to write this function if you find that feature desirable.
@@ -41,33 +42,29 @@ export function dummyData(): IGrade[] {
  */
 export const GradeTable: React.FC<GradeTableProps>= ({currClassID}) => {
   const data = dummyData()
-  const filteredData = data.filter(item=> item.ClassName === currClassID)
-  return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Student ID</TableCell>
-          <TableCell>Student Name</TableCell>
-          <TableCell>Class ID</TableCell>
-          <TableCell>Class Name</TableCell>
-          <TableCell>Semester</TableCell>
-          <TableCell>Final Grade</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {filteredData.map((item, index) =>( 
-        <TableRow key = {index}>
-        <TableCell>{item.StudentID}</TableCell>
-        <TableCell>{item.StudentName}</TableCell>
-        <TableCell>{item.ClassID}</TableCell>
-        <TableCell>{item.ClassName}</TableCell>
-        <TableCell>{item.Semester}</TableCell>
-        <TableCell>{item.FinalGrade}</TableCell>
-        </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
+  const enhancedData = data.map((item, index) => ({ ...item, id: index }));
+  const filteredData = enhancedData.filter(item => item.ClassName === currClassID);
+  console.log(filteredData)
+  const columns = [
+    {field: 'StudentID', headerName: 'Student ID', width: 150},
+    {field: 'StudentName', headerName: 'Student Name', width: 150},
+    {field: 'ClassID', headerName: 'Class ID', width: 150},
+    {field: 'ClassName', headerName: 'Class Name', width: 150},
+    {field: 'Semester', headerName: 'Semester', width: 150},
+    {field: 'FinalGrade', headerName: 'Final Grade', width: 150}
+  ];
+  return(
+  <DataGrid
+  rows={filteredData}
+  columns={columns}
+  initialState={{
+    pagination: {
+      paginationModel: { page: 0, pageSize: 5 },
+    },
+  }}
+  pageSizeOptions={[5, 10]}
+/>
+);
 };
   export default GradeTable
 
