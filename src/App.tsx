@@ -1,35 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { MenuItem, Select, Typography } from "@mui/material";
-import PostComponent from "./components/PostClass";
+import GetSemester from "./components/PostClass";
 import GradeTable from "./components/GradeTable";
 /**
  * You will find globals from this file useful!
  */
 import {} from "./globals";
 import { IUniversityClass } from "./types/api_types";
+import PostComponent from "./components/PostClass";
 
 function App() {
   // You will need to use more of these!
   const [currClassId, setCurrClassId] = useState<string>("");
-  const [classList, setClassList] = useState<IUniversityClass[]>([{"classId": "C123456",
-  "description": "Introduction to software methodology",
-  "meetingLocation": "B52",
-  "meetingTime": "TR 1700-1830",
-  "semester": "fall2022",
-  "status": "active",
-  "title": "DS 519"},{"classId": "C123456",
-  "description": "Introduction to software methodology",
-  "meetingLocation": "B52",
-  "meetingTime": "TR 1700-1830",
-  "semester": "fall2022",
-  "status": "active",
-  "title": "CS 350"}]);
+  const [classList, setClassList] = useState<IUniversityClass[]>([]);
 
-  const updateClassList = (newClass: IUniversityClass) => {
-    setClassList([...classList, newClass])
-  }
-
+  const updateClassList = (newClasses: IUniversityClass[]) => {
+    setClassList(newClasses);
+}
   /**
    * This is JUST an example of how you might fetch some data(with a different API).
    * As you might notice, this does not show up in your console right now.
@@ -44,7 +32,6 @@ function App() {
    * You will also need to explore the use of async/await.
    *
    */
-
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
@@ -61,7 +48,8 @@ function App() {
           <div style={{ width: "100%" }}>
             <Select fullWidth={true} label="Class" value = {currClassId} onChange={(event) => setCurrClassId(event.target.value)}>
               {/* You'll need to place some code here to generate the list of items in the selection */}
-               {classList.map(clas => (
+              <PostComponent updateClassList={updateClassList}/>
+              {classList.map(clas => (
                 <MenuItem key = {clas.classId} value={clas.title}>{clas.title} </MenuItem>)) } 
             </Select>
           </div>

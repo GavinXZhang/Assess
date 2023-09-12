@@ -17,7 +17,7 @@ export function dummyData(): IGrade[] {
       StudentID: 'S001',
       StudentName: 'John Doe',
       ClassID: 'C123',
-      ClassName: 'DS 519',
+      ClassName: 'ST 519',
       Semester: 'Fall 2023',
       FinalGrade: 'A'
     },

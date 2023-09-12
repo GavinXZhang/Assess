@@ -4,33 +4,30 @@ import { MY_BU_ID, BASE_API_URL, GET_DEFAULT_HEADERS } from "../globals"
 interface Props {
     updateClassList: (data: any) => void; 
   }
-const PostComponent: React.FC<Props>= ({updateClassList}) => {
-useEffect(()=> {
-    const postData = async () => {
-        try{
-            const requestBody = {
-                classId: "C123456",
-                description: "Introduction to software methodology",
-                meetingLocation: "BS23",
-                meetingTime: "TR 1700-1830",
-                semester: "fall2022",
-                status: "active",
-                title: "DS 9991"
-            }
-
-            const response = await axios.post(`${BASE_API_URL}/student/${MY_BU_ID}`, requestBody, {
-                headers: GET_DEFAULT_HEADERS(),
-                });
-        
-            updateClassList(response.data);
-        }   catch (error) {
-            console.error("Error fetching data: ", {error});
-            }
+const OnlySemester :string = "fall2022" 
+const getClassesBySemester = async (semester: string) => {
+    try{
+        const response = await axios.get(`${BASE_API_URL}/class/listBySemester/${OnlySemester}?BUID=${MY_BU_ID}`,{
+            headers: GET_DEFAULT_HEADERS(),
+        });
+        console.log("Recieved Semester", response.data)
+        return response.data;
     }
+    catch(error){
+        console.error("error fetching semester class", error);
+    }
+}
+const PostComponent: React.FC<Props>= ({updateClassList}) => {
 
-    postData();
-},[updateClassList]);
+useEffect(() => {
+    const fetchData = async () => {
+        const classes = await getClassesBySemester(OnlySemester);
+        updateClassList(classes);
+    };
 
+    fetchData();
+}, [updateClassList]);
 return null;
 }
+
 export default PostComponent;
