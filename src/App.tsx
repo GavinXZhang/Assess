@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { MenuItem, Select, Typography } from "@mui/material";
 import GetSemester from "./components/PostClass";
@@ -7,17 +7,25 @@ import GradeTable from "./components/GradeTable";
  * You will find globals from this file useful!
  */
 import {} from "./globals";
-import { IUniversityClass } from "./types/api_types";
+import { IUniversityClass, IGrade } from "./types/api_types";
 import PostComponent from "./components/PostClass";
 
 function App() {
   // You will need to use more of these!
   const [currClassId, setCurrClassId] = useState<string>("");
   const [classList, setClassList] = useState<IUniversityClass[]>([]);
+  const [studentsData, setStudentsData] = useState<IGrade[]>([]);
 
-  const updateClassList = (newClasses: IUniversityClass[]) => {
+  useEffect(() => {
+    console.log(studentsData);
+}, [studentsData]);
+  const updateClassList = useCallback((newClasses: IUniversityClass[]) => {
     setClassList(newClasses);
-}
+},[]);
+
+  const updateStudentsData = useCallback((data:IGrade[]) => {
+    setStudentsData(data);
+  },[]);
   /**
    * This is JUST an example of how you might fetch some data(with a different API).
    * As you might notice, this does not show up in your console right now.
@@ -48,7 +56,7 @@ function App() {
           <div style={{ width: "100%" }}>
             <Select fullWidth={true} label="Class" value = {currClassId} onChange={(event) => setCurrClassId(event.target.value)}>
               {/* You'll need to place some code here to generate the list of items in the selection */}
-              <PostComponent updateClassList={updateClassList}/>
+              <PostComponent classList={classList} updateClassList={updateClassList} updateStudentsData={updateStudentsData} />
               {classList.map(clas => (
                 <MenuItem key = {clas.classId} value={clas.title}>{clas.title} </MenuItem>)) } 
             </Select>
@@ -58,7 +66,7 @@ function App() {
           <Typography variant="h4" gutterBottom>
             Final Grades
           </Typography>
-          <GradeTable currClassID ={currClassId} />
+          <GradeTable currClassID ={currClassId} studentsData = {studentsData} />
         </Grid>
       </Grid>
     </div>

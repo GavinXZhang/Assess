@@ -10,6 +10,7 @@ import {DataGrid} from '@mui/x-data-grid';
  */
 interface GradeTableProps {
   currClassID: string;
+  studentsData: IGrade[];
 }
 export function dummyData(): IGrade[] {
   return[
@@ -25,7 +26,7 @@ export function dummyData(): IGrade[] {
       StudentID: 'S007',
       StudentName: 'John DooDoo',
       ClassID: 'C123',
-      ClassName: 'DS 519',
+      ClassName: 'ST 519',
       Semester: 'Fall 2023',
       FinalGrade: 'S+'
     },
@@ -40,8 +41,8 @@ export function dummyData(): IGrade[] {
  * You might need to change the signature of this function.
  *
  */
-export const GradeTable: React.FC<GradeTableProps>= ({currClassID}) => {
-  const data = dummyData()
+export const GradeTable: React.FC<GradeTableProps>= ({currClassID, studentsData}) => {
+  const data = studentsData
   const enhancedData = data.map((item, index) => ({ ...item, id: index }));
   const filteredData = enhancedData.filter(item => item.ClassName === currClassID);
   console.log(filteredData)
