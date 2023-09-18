@@ -12,6 +12,7 @@ import PostComponent from "./components/PostClass";
 
 function App() {
   // You will need to use more of these!
+  //studentsData used to print PostClass. currclassId, shows the current class selected.
   const [currClassId, setCurrClassId] = useState<string>("");
   const [classList, setClassList] = useState<IUniversityClass[]>([]);
   const [studentsData, setStudentsData] = useState<IGrade[]>([]);
