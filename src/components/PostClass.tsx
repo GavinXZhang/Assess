@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { MY_BU_ID, BASE_API_URL, GET_DEFAULT_HEADERS } from "../globals"
 import { IUniversityClass, IGrade } from "../types/api_types";
 

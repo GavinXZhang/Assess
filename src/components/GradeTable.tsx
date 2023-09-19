@@ -1,5 +1,4 @@
 import { IGrade } from "../types/api_types"
-import{Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import {DataGrid} from '@mui/x-data-grid';
 /**
  * You might find it useful to have some dummy data for your own testing.

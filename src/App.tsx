@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { MenuItem, Select, Typography } from "@mui/material";
-import GetSemester from "./components/PostClass";
 import GradeTable from "./components/GradeTable";
 /**
  * You will find globals from this file useful!
